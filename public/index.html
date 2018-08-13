@@ -7,5 +7,18 @@
   </head>
   <body>
     <p>Welcome to chat app</p>
+
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io(); // create a connection
+      socket.on('connect',() => {
+        console.log('Connected to the server');
+      });
+      socket.on('disconnect',() => {
+        console.log('disconnected with server');
+      });
+    </script>
   </body>
 </html>
