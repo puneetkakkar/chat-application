@@ -1,24 +1,15 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <title></title>
   </head>
   <body>
-    <p>Welcome to chat app</p>
+    <p>
+      <h1>Welcome</h1> CHAT APP
+    </p>
 
-
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-      var socket = io(); // create a connection
-      socket.on('connect',() => {
-        console.log('Connected to the server');
-      });
-      socket.on('disconnect',() => {
-        console.log('disconnected with server');
-      });
-    </script>
+    <script src="/socket.io/socket.io.js" charset="utf-8"></script>
+    <script src="/js/index.js"></script>
   </body>
 </html>
