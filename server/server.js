@@ -28,7 +28,7 @@ io.on('connection', (socket) => {
     //   text: message.text
     //   createdAt: new Date().getTime()
     // });
-    callback('This is from server');
+    callback();
   });
   socket.on('createLocationMessage',(message) => {
     console.log(message);
