@@ -15,13 +15,11 @@ var server = http.createServer(app);
 var io = socketIO(server);
 
 io.on('connection', (socket) => {
-
   console.log('New user connected');
-
   socket.emit('newMessage',generateMessage('Admin', 'Welcome to chat app'));
   socket.broadcast.emit('newMessage',generateMessage('Admin', 'New User joined'))
   socket.on('createMessage',(message,callback) => {
-    console.log('create message', message);
+    // console.log('create message', message);
     io.emit('newMessage',generateMessage(message.from, message.text));
     // socket.broadcast.emit('newMessage', {
     //   from: message.from,
@@ -31,7 +29,7 @@ io.on('connection', (socket) => {
     callback();
   });
   socket.on('createLocationMessage',(message) => {
-    console.log(message);
+    // console.log(message);
     io.emit('newLocationMessage',generateLocationMessage(message.from, message.latitude, message.longitude));
   });
   socket.on('disconnect', () => {
