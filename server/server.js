@@ -36,18 +36,23 @@ io.on('connection', (socket) => {
     }
   });
   socket.on('createMessage',(message,callback) => {
-    // console.log('create message', message);
-    io.emit('newMessage',generateMessage(message.from, message.text));
+    var user = users.getUser(socket.id);
+
+    if (user && isRealString(message.text)) {
+      io.to(user.room).emit('newMessage',generateMessage(user.name, message.text));
+      callback();
+    }
     // socket.broadcast.emit('newMessage', {
     //   from: message.from,
     //   text: message.text
     //   createdAt: new Date().getTime()
     // });
-    callback();
   });
   socket.on('createLocationMessage',(message) => {
-    // console.log(message);
-    io.emit('newLocationMessage',generateLocationMessage(message.from, message.latitude, message.longitude));
+    var user = users.getUser(socket.id);
+    if (user) {
+      io.to(user.room).emit('newLocationMessage',generateLocationMessage(user.name, message.latitude, message.longitude));
+    }
   });
   socket.on('disconnect', () => {
     console.log('user disconnected');
@@ -55,7 +60,6 @@ io.on('connection', (socket) => {
     if(user){
       io.to(user.room).emit('updateUsersList', users.getUsersByRoom(user.room));
       io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} left the room.`));
-
     }
   });
 });
